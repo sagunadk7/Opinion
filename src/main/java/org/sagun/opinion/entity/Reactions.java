@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.sagun.opinion.enums.ReactionStrengthTypeEnum;
 import org.sagun.opinion.enums.ReactionsTypeEnum;
 
@@ -24,12 +25,19 @@ public class Reactions {
     private Users user;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ReactionsTypeEnum reactionsType;
 
     @Enumerated(EnumType.STRING)
-    private ReactionStrengthTypeEnum reactionStrenthType= ReactionStrengthTypeEnum.SLIGHT;
+    @Column(nullable = false)
+    private ReactionStrengthTypeEnum reactionStrengthType= ReactionStrengthTypeEnum.SLIGHT;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Thought thought;
 
     @Column(updatable = false)
+    @CreationTimestamp
     private LocalDate createdAt;
 
 

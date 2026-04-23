@@ -10,6 +10,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -39,6 +41,13 @@ public class Thought {
 
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean isDebateMode=true;
+
+    @OneToMany(mappedBy = "thought",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Opinions> opinions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "thought",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Reactions> reactions = new ArrayList<>();
+
 
     @Column(nullable = false)
     @Min(0)

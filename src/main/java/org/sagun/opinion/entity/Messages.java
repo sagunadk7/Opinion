@@ -20,18 +20,22 @@ public class Messages {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     private Chats chats;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     private Users sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     private Users receiver;
 
     @Column(nullable = false)
     private String message;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private MessageStatusEnum status = MessageStatusEnum.SENT;
 
     @Column(nullable = false)

@@ -34,7 +34,6 @@ public class ChatRequests {
     private Instant sentAt;
 
     @Column(updatable = false)
-    @CreationTimestamp
     private Instant respondedAt;
 
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
 
 @Entity
 @NoArgsConstructor
@@ -28,6 +29,8 @@ public class Opinions {
 
     @Column(nullable = false)
     private String content;
+
+
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

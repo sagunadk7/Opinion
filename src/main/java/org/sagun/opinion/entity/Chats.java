@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 
 import java.time.Instant;
+import java.util.ArrayList;
 
 @Entity
 @NoArgsConstructor
@@ -21,7 +22,7 @@ public class Chats {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
-    private Users usersFirst;
+    private Users userFirst;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
@@ -30,4 +31,11 @@ public class Chats {
     @Column(nullable = false)
     @CreationTimestamp
     private Instant createdAt;
+
+    @OneToMany(mappedBy = "chats",cascade = CascadeType.ALL,orphanRemoval = true)
+    private ArrayList<Messages> messages;
+
+
+
+
 }
