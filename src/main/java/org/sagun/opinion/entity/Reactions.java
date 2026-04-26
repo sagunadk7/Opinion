@@ -7,13 +7,14 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.sagun.opinion.enums.ReactionStrengthTypeEnum;
 import org.sagun.opinion.enums.ReactionsTypeEnum;
+import java.time.Instant;
 
-import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"user_id","thought_id"}))
 public class Reactions {
 
     @Id
@@ -38,7 +39,7 @@ public class Reactions {
 
     @Column(updatable = false)
     @CreationTimestamp
-    private LocalDate createdAt;
+    private Instant createdAt;
 
 
 }

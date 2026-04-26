@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -33,7 +34,7 @@ public class Chats {
     private Instant createdAt;
 
     @OneToMany(mappedBy = "chats",cascade = CascadeType.ALL,orphanRemoval = true)
-    private ArrayList<Messages> messages;
+    private List<Messages> messages = new ArrayList<>();
 
 
 

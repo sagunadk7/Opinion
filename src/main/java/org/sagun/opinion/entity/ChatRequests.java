@@ -13,6 +13,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"sender_id","receiver_id"}))
 public class ChatRequests {
 
     @Id

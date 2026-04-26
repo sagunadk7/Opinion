@@ -1,9 +1,10 @@
 package org.sagun.opinion.controller;
 
-import org.sagun.opinion.dto.UserRequestDTO;
+import org.sagun.opinion.dto.UserChangePasswordRequestDTO;
+import org.sagun.opinion.dto.UserRegistrationRequestDTO;
+import org.sagun.opinion.dto.UserResponseDTO;
 import org.sagun.opinion.entity.Users;
 import org.sagun.opinion.jwtutils.JWTUtils;
-import org.sagun.opinion.mapper.UserMapper;
 import org.sagun.opinion.service.UserService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -28,25 +29,32 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<?> singIn(@RequestBody UserRequestDTO userRequestDTO) {
-        if(service.getUser(userRequestDTO.getUsername()).isPresent()) {
+    public ResponseEntity<?> singIn(@RequestBody UserRegistrationRequestDTO userRegistrationRequestDTO) {
+        if(service.getUser(userRegistrationRequestDTO.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("Username already Exist.");
         }
         Users user;
         try {
-            user = service.addUser(userRequestDTO);
+            user = service.addUser(userRegistrationRequestDTO);
         } catch (DataIntegrityViolationException e) {
-            // Catches race condition where two requests pass the check simultaneously
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("Username already exists.");
         }
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRequestDTO.getUsername(),userRequestDTO.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRegistrationRequestDTO.getUsername(), userRegistrationRequestDTO.getPassword()));
         } catch (Exception e) {
-            System.out.println("Error Occured");
+            System.out.println("Error Occurred");
             throw e;
         }
         String token = jwtUtils.generateJwt(user.getUsername());
-        return ResponseEntity.ok(token);
+        UserResponseDTO response = new UserResponseDTO(token);
+        return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/change-password")
+    public String changePassword(UserChangePasswordRequestDTO userChangePasswordRequestDTO){
+
+        return "";
+    }
+
 }

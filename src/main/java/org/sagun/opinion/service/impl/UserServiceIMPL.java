@@ -1,7 +1,6 @@
 package org.sagun.opinion.service.impl;
 
-import org.sagun.opinion.dto.UserRequestDTO;
-import org.sagun.opinion.dto.UserResponseDTO;
+import org.sagun.opinion.dto.UserRegistrationRequestDTO;
 import org.sagun.opinion.entity.Users;
 import org.sagun.opinion.repository.UserRepository;
 import org.sagun.opinion.service.UserService;
@@ -23,13 +22,13 @@ public class UserServiceIMPL implements UserService {
     }
 
     @Override
-    public Users addUser(UserRequestDTO userRequestDTO) {
+    public Users addUser(UserRegistrationRequestDTO userRegistrationRequestDTO) {
         Users user = new Users();
-        user.setUsername(userRequestDTO.getUsername());
-        user.setFirstName(userRequestDTO.getFirstName());
-        user.setLastName(userRequestDTO.getLastName());
-        user.setEmail(userRequestDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
+        user.setUsername(userRegistrationRequestDTO.getUsername());
+        user.setFirstName(userRegistrationRequestDTO.getFirstName());
+        user.setLastName(userRegistrationRequestDTO.getLastName());
+        user.setEmail(userRegistrationRequestDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(userRegistrationRequestDTO.getPassword()));
         return repository.save(user);
     }
 

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 
@@ -11,6 +12,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name="follow",uniqueConstraints = @UniqueConstraint(columnNames = {"follower_id","following_id"}))
 public class Follow {
 
     @Id
@@ -26,6 +28,7 @@ public class Follow {
     private Users following;
 
     @Column(updatable = false)
+    @CreationTimestamp
     private Instant createdAt;
 
 

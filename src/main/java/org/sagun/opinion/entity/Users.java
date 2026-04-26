@@ -30,13 +30,19 @@ public class Users implements UserDetails {
     private String firstName;
     @Column(nullable = false, length = 50)
     private String lastName;
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String email;
     @Column(nullable = false)
     private String password;
 
     private String bio;
     private Integer reputationScore=0;
+
+    @Column(columnDefinition = "BYTEA")
+    private byte[] profileImage;
+
+    @Column(length=50)
+    private String profileImageContentType;
 
     @CreationTimestamp
     private Instant createdAt;

@@ -26,6 +26,12 @@ public class Notifications {
     @Column(nullable = false)
     private NotificationTypeEnum notificationTypeEnum;
 
+    @ManyToOne(fetch =FetchType.LAZY)
+    private Users triggeredBy;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Thought relatedThought;
+
     @Column(nullable = false)
     private Boolean isRead = false;
     @Column(nullable = false)
