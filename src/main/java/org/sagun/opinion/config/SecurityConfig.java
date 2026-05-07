@@ -2,10 +2,8 @@ package org.sagun.opinion.config;
 
 
 import org.sagun.opinion.filter.JWTFilter;
-import org.sagun.opinion.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -37,11 +35,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-//    @Bean
-//    @Primary
-//    public UserDetailsService userDetailsService(){
-//        return new CustomUserDetailsService();
-//    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder(){

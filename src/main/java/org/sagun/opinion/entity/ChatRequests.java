@@ -21,10 +21,11 @@ public class ChatRequests {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @JoinColumn(name="sender_id",nullable = false)
     private Users senderId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="receiver_id",nullable = false)
     private Users receiverId;
 
     @Enumerated(EnumType.STRING)
@@ -34,7 +35,6 @@ public class ChatRequests {
     @CreationTimestamp
     private Instant sentAt;
 
-    @Column(updatable = false)
     private Instant respondedAt;
 
 }

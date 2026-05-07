@@ -1,4 +1,4 @@
-package org.sagun.opinion.controller;
+package org.sagun.opinion.controller.authcontroller;
 
 import org.sagun.opinion.dto.UserChangePasswordRequestDTO;
 import org.sagun.opinion.dto.UserRegistrationRequestDTO;
@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,16 +30,16 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<?> singIn(@RequestBody UserRegistrationRequestDTO userRegistrationRequestDTO) {
+    public ResponseEntity<?> signIn(@RequestBody UserRegistrationRequestDTO userRegistrationRequestDTO) {
         if(service.getUser(userRegistrationRequestDTO.getUsername()).isPresent()) {
-            return ResponseEntity.badRequest().body("Username already Exist.");
+            return ResponseEntity.badRequest().body("User already Exist.");
         }
         Users user;
         try {
             user = service.addUser(userRegistrationRequestDTO);
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("Username already exists.");
+                    .body("Enter all the field.");
         }
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRegistrationRequestDTO.getUsername(), userRegistrationRequestDTO.getPassword()));
@@ -52,9 +53,13 @@ public class UserController {
     }
 
     @PostMapping("/change-password")
-    public String changePassword(UserChangePasswordRequestDTO userChangePasswordRequestDTO){
-
-        return "";
+    public String changePassword(@RequestBody UserChangePasswordRequestDTO userChangePasswordRequestDTO){
+        System.out.println("-------------------------------");
+        System.out.println("username "+ userChangePasswordRequestDTO.getCurrentPassword());
+        System.out.println("oldPassword "+ userChangePasswordRequestDTO.getCurrentPassword());
+        System.out.println("newPassword "+ userChangePasswordRequestDTO.getNewPassword());
+        System.out.println("-------------------------------");
+        return service.changePassword(userChangePasswordRequestDTO);
     }
 
 }
